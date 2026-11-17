@@ -1,0 +1,18 @@
+[Unit]
+Description=Cloudflare Tunnel for ComfyUI team workspace
+After=network-online.target comfyui-team-gateway.service
+Wants=network-online.target
+Requires=comfyui-team-gateway.service
+
+[Service]
+Type=simple
+# Edit binary path to match your installation; %h expands in this user service.
+# Configuration must require Access JWT validation and target only the gateway.
+ExecStart=/usr/local/bin/cloudflared --no-autoupdate tunnel --config %h/.config/comfyui-team/cloudflared.yml run
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

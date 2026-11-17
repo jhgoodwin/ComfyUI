@@ -1,0 +1,16 @@
+[Unit]
+Description=ComfyUI shared team queue (loopback only)
+After=network.target
+
+[Service]
+Type=simple
+# User-service template: %h is the service user's home directory.
+# Edit checkout paths and add device flags only if your hardware requires them.
+WorkingDirectory=%h/src/ComfyUI
+ExecStart=%h/src/ComfyUI/.venv/bin/python main.py --listen 127.0.0.1 --port 8188 --multi-user --disable-auto-launch --disable-assets --disable-partner-nodes --disable-all-custom-nodes
+Restart=on-failure
+RestartSec=5
+UMask=0077
+
+[Install]
+WantedBy=default.target

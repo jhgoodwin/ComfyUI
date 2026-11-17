@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.env
+
+# Generated integration-test evidence
+smoke-results.json
+workspace-smoke.png

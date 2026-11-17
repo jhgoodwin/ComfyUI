@@ -1,0 +1,18 @@
+# Replace every REPLACE_WITH value; keep credentials outside the repository.
+tunnel: REPLACE_WITH_TUNNEL_UUID
+# Use an actual absolute path: cloudflared YAML does not expand systemd's %h.
+credentials-file: /path/to/private/REPLACE_WITH_TUNNEL_UUID.json
+metrics: 127.0.0.1:20242
+ingress:
+  # Must match TEAM_PUBLIC_ORIGIN and the all-paths Access application.
+  - hostname: comfy.example.com
+    # Gateway only; never point public ingress at the unauthenticated backend.
+    service: http://127.0.0.1:8189
+    originRequest:
+      access:
+        required: true
+        teamName: REPLACE_WITH_ZERO_TRUST_TEAM_NAME
+        audTag:
+          - REPLACE_WITH_ACCESS_APPLICATION_AUDIENCE
+  # Reject every hostname not explicitly listed above.
+  - service: http_status:404

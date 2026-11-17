@@ -1,0 +1,20 @@
+[Unit]
+Description=Google Access authenticated ComfyUI workspace gateway
+After=network-online.target comfyui-team.service
+Wants=network-online.target
+Requires=comfyui-team.service
+
+[Service]
+Type=simple
+# Edit checkout paths if not installed under %h/src/ComfyUI.
+WorkingDirectory=%h/src/ComfyUI/tools/team_workspace
+# Required local configuration; missing file must fail startup.
+EnvironmentFile=%h/.config/comfyui-team/workspace.env
+ExecStart=%h/src/ComfyUI/tools/team_workspace/.venv/bin/python gateway.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

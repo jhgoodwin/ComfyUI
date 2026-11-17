@@ -1,0 +1,14 @@
+{
+  "name": "ComfyUI trusted team example",
+  "decision": "allow",
+  "session_duration": "8h",
+  "include": [
+    {"email": {"email": "alice@example.com"}},
+    {"email": {"email": "bob@example.com"}},
+    {"email_domain": {"domain": "example.org"}}
+  ],
+  "require": [
+    {"login_method": {"id": "REPLACE_WITH_GOOGLE_IDENTITY_PROVIDER_ID"}}
+  ],
+  "exclude": []
+}
